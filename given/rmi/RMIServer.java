@@ -39,7 +39,7 @@ public class RMIServer implements RMIServerI {
 	
 		// TO-DO: Log receipt of the message
 
-		receivedMessages[msg.messageNum]++;		
+		receivedMessages[msg.messageNum - 1]++;		
 
 		// TO-DO: If this is the last expected message, then identify
 		//        any missing messages
@@ -54,6 +54,7 @@ public class RMIServer implements RMIServerI {
 			}
 
 			System.out.print("and that's all. \n");
+			totalMessages = -1;
 		}
 	}
 

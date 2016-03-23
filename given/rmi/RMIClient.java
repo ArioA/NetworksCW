@@ -41,7 +41,7 @@ public class RMIClient {
 
 		try {
 			String name = "ArioServer";
-			Registry registry = LocateRegistry.getRegistry(urlServer);
+			Registry registry = LocateRegistry.getRegistry(args[0], 1099);
 			RMIServerI server = (RMIServerI) registry.lookup(name);
 			
 
