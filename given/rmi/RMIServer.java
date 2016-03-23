@@ -31,12 +31,30 @@ public class RMIServer implements RMIServerI {
 	public void receiveMessage(MessageInfo msg) throws RemoteException {
 
 		// TO-DO: On receipt of first message, initialise the receive buffer
-
+		if(totalMessages == -1) {
+			receivedMessages = new int[msg.totalMessages];
+			Arrays.fill(receivedMessages, 0);
+			totalMessages = msg.totalMessages;
+		}
+	
 		// TO-DO: Log receipt of the message
+
+		receivedMessages[msg.messageNum]++;		
 
 		// TO-DO: If this is the last expected message, then identify
 		//        any missing messages
 
+		if(msg.messageNum == totalMessages) {
+			System.out.print("Missing messages are numbers: ");
+	
+			for(int k = 0; k < totalMessages; k++) {
+				if(receivedMessages[k] == 0) {
+					System.out.print(k + ", ");
+				}
+			}
+
+			System.out.print("and that's all. \n");
+		}
 	}
 
 
@@ -45,13 +63,13 @@ public class RMIServer implements RMIServerI {
 		// TO-DO: Initialise Security Manager
 
 		if(System.getSecurityManager() == null) {
-			System.setSecurityManager(new SecurityManger());
+			System.setSecurityManager(new SecurityManager());
 		}
 
 		try {
 			String name = "ArioServer";
 			RMIServerI server = new RMIServer();
-			RMIServerI stub = (RMIServerI) UnicaseRemoteObject.exportObject(server, 0);
+			RMIServerI stub = (RMIServerI) UnicastRemoteObject.exportObject(server, 0);
 			Registry registry = LocateRegistry.getRegistry();
 			registry.rebind(name, stub);
 			System.out.println("Server Bound!");
@@ -65,7 +83,7 @@ public class RMIServer implements RMIServerI {
 		// TO-DO: Bind to RMI registry
 
 	}
-
+/*
 	protected static void rebindServer(String serverURL, RMIServer server) {
 
 		// TO-DO:
@@ -77,4 +95,5 @@ public class RMIServer implements RMIServerI {
 		// Note - Registry.rebind (as returned by createRegistry / getRegistry) does something similar but
 		// expects different things from the URL field.
 	}
+*/
 }

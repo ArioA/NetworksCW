@@ -33,7 +33,7 @@ public class RMIClient {
 
 		// TO-DO: Initialise Security Manager
 
-		if(System.getSecurityManger() == null) {
+		if(System.getSecurityManager() == null) {
 			System.setSecurityManager(new SecurityManager());
 		}
 
