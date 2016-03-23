@@ -17,7 +17,7 @@ import common.*;
  * @author bandara
  *
  */
-public class RMIServer extends UnicastRemoteObject implements RMIServerI {
+public class RMIServer implements RMIServerI {
 
 	private int totalMessages = -1;
 	private int[] receivedMessages;
@@ -39,9 +39,23 @@ public class RMIServer extends UnicastRemoteObject implements RMIServerI {
 
 	public static void main(String[] args) {
 
-		RMIServer rmis = null;
-
 		// TO-DO: Initialise Security Manager
+
+		if(System.getSecurityManager() == null) {
+			System.setSecurityManager(new SecurityManger());
+		}
+
+		try {
+			String name = "ArioServer";
+			RMIServerI server = new RMIServer();
+			RMIServerI stub = (RMIServerI) UnicaseRemoteObject.exportObject(server, 0);
+			Registry registry = LocateRegistry.getRegistry();
+			registry.rebind(name, stub);
+			System.out.println("Server Bound!");
+		} catch (Exception e) {
+			System.err.println("Server Error:");
+			e.printStackTrace();
+		}
 
 		// TO-DO: Instantiate the server class
 
