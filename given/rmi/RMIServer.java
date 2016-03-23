@@ -46,6 +46,8 @@ public class RMIServer implements RMIServerI {
 	
 		// TO-DO: Log receipt of the message
 
+		System.out.println(msg);
+
 		receivedMessages[msg.messageNum - 1]++;
 
 		System.out.println("NOTED:" + msg.messageNum);		
