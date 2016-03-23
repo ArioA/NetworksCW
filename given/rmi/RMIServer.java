@@ -40,6 +40,8 @@ public class RMIServer implements RMIServerI {
 			for(int k=0; k < totalMessages; k++) {
 				receivedMessages[k] = 0;
 			}
+
+			System.out.println("FIRST IF OUT");
 		}
 	
 		// TO-DO: Log receipt of the message
