@@ -7,11 +7,13 @@ package rmi;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Arrays;
 
 import common.*;
+import rmi.RMIServerI;
 
 /**
  * @author bandara
@@ -23,6 +25,7 @@ public class RMIServer implements RMIServerI {
 	private int[] receivedMessages;
 
 	public RMIServer() throws RemoteException {
+		super();
 	}
 
 	public void receiveMessage(MessageInfo msg) throws RemoteException {
