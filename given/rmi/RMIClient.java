@@ -48,7 +48,7 @@ public class RMIClient {
 		// TO-DO: Attempt to send messages the specified number of times
 
 			for(int k = 1; k <= numMessages; k++) {
-				MessageInfo msg = new MessageInfo(k, numMessages);
+				MessageInfo msg = new MessageInfo(numMessages, k);
 				server.receiveMessage(msg);
 			}
 
