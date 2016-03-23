@@ -32,14 +32,21 @@ public class RMIServer implements RMIServerI {
 
 		// TO-DO: On receipt of first message, initialise the receive buffer
 		if(totalMessages == -1) {
-			receivedMessages = new int[msg.totalMessages];
-			Arrays.fill(receivedMessages, 0);
+
+			System.out.println("FIRST IF");
+
 			totalMessages = msg.totalMessages;
+			receivedMessages = new int[totalMessages];
+			for(int k=0; k < totalMessages; k++) {
+				receivedMessages[k] = 0;
+			}
 		}
 	
 		// TO-DO: Log receipt of the message
 
-		receivedMessages[msg.messageNum - 1]++;		
+		receivedMessages[msg.messageNum - 1]++;
+
+		System.out.println("NOTED:" + msg.messageNum);		
 
 		// TO-DO: If this is the last expected message, then identify
 		//        any missing messages
