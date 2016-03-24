@@ -90,7 +90,7 @@ public class UDPServer {
 		// TO-DO: Initialise UDP socket for receiving data
 		try {
 			recvSoc = new DatagramSocket(rp);
-			recvSoc.setSoTimeout(10000); // Set the timeout period to 10 seconds.
+			recvSoc.setSoTimeout(30000); // Set the timeout period to 10 seconds.
 
 			// Done Initialisation
 			System.out.println("UDPServer ready");
