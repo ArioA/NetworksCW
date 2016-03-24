@@ -60,18 +60,13 @@ public class UDPClient {
 	}
 
 	private void testLoop(InetAddress serverAddr, int recvPort, int countTo) {
-		int				tries = 2;
 
 		// TO-DO: Send the messages to the server
 		try {
-			String message;
 			MessageInfo msgInfo;
 			for(int k = 1; k <= countTo; k++) {
 				msgInfo = new MessageInfo(countTo, k);
-				message = new String(msgInfo.toString());
-				for(int j = 0; j < tries; j++) {
-					this.send(message, serverAddr, recvPort);
-				}
+				this.send(msgInfo.toString(), serverAddr, recvPort);
 			}
 		} catch(Exception e) {
 			System.err.println("Error in testLoop():");
