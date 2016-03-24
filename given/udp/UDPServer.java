@@ -44,7 +44,7 @@ public class UDPServer {
 				System.err.print("Unreceived messages are: ");
 				for(int k = 0; k < totalMessages; k++) {
 					if(receivedMessages[k] == 0) {
-						System.err.print(k + ", ");
+						System.err.print((k+1) + ", ");
 					}
 				}
 				System.err.println("and that is all.");
@@ -99,7 +99,7 @@ public class UDPServer {
 		// TO-DO: Initialise UDP socket for receiving data
 		try {
 			recvSoc = new DatagramSocket(rp);
-			recvSoc.setSoTimeout(30000); // Set the timeout period to 10 seconds.
+			recvSoc.setSoTimeout(10000); // Set the timeout period to 10 seconds.
 
 			// Done Initialisation
 			System.out.println("UDPServer ready");
