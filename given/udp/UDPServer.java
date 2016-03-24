@@ -38,11 +38,13 @@ public class UDPServer {
 				pacData = new byte[256];
 				pac = new DatagramPacket(pacData, pacData.length);
 				recvSoc.receive(pac);
-				processMessage(new String(packet.getData(), 0, packet.getLength()));
-			} catch(SocketTimeoutException e) {
+				processMessage(new String(pac.getData(), 0, pac.getLength()));
+			} catch(Exception e) {
 				System.err.println("Waited on receive too long.");
 				close = true;
 			}
+		}
+		recvSoc.close();
 	}
 
 	public void processMessage(String data) {
@@ -110,7 +112,7 @@ public class UDPServer {
 		recvPort = Integer.parseInt(args[0]);
 
 		// TO-DO: Construct Server object and start it by calling run().
-		UPDServer udpServer = new UDPServer(recvPort);
+		UDPServer udpServer = new UDPServer(recvPort);
 		udpServer.run();
 	}
 

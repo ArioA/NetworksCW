@@ -3,9 +3,6 @@
  * @author bandara
  */
 
-// TO DO: - Close off sockets (in server as well)
-// 		- compile
-// 		- test
 package udp;
 
 import java.io.IOException;
@@ -29,7 +26,6 @@ public class UDPClient {
 		InetAddress	serverAddr = null;
 		int			recvPort;
 		int 		countTo;
-		String 		message;
 
 		// Get the parameters
 		if (args.length < 3) {
@@ -50,11 +46,17 @@ public class UDPClient {
 		// TO-DO: Construct UDP client class and try to send messages
 		UDPClient client = new UDPClient();
 		client.testLoop(serverAddr, recvPort, countTo);
+		client.sendSoc.close();
 	}
 
 	public UDPClient() {
 		// TO-DO: Initialise the UDP socket for sending data
-		sendSoc = new DatagramSocket();
+		try {
+			sendSoc = new DatagramSocket();
+		} catch(Exception e) {
+			System.err.println("UDPClient constructor exception:");
+			e.printStackTrace();
+		}
 	}
 
 	private void testLoop(InetAddress serverAddr, int recvPort, int countTo) {
@@ -62,8 +64,9 @@ public class UDPClient {
 
 		// TO-DO: Send the messages to the server
 		try {
+			String message;
 			for(int k = 1; k <= countTo; k++) {
-				message = countTo + ";" + k;
+				message = new String(countTo + ";" + k);
 				for(int j = 0; j < tries; j++) {
 					this.send(message, serverAddr, recvPort);
 				}
@@ -82,7 +85,7 @@ public class UDPClient {
 		
 		try {
 			// TO-DO: build the datagram packet and send it to the server
-			payloadSize = payload.length;
+			payloadSize = payload.length();
 			pktData = new byte[payloadSize];
 			pktData = payload.getBytes();
 			pkt = new DatagramPacket(pktData, payloadSize, destAddr, destPort);
