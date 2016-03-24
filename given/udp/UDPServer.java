@@ -41,13 +41,13 @@ public class UDPServer {
 				processMessage(new String(pac.getData(), 0, pac.getLength()-1));
 			} catch(Exception e) {
 				System.err.println("Waited on receive too long.");
-				System.out.print("Unreceived messages are: ");
+				System.err.print("Unreceived messages are: ");
 				for(int k = 0; k < totalMessages; k++) {
 					if(receivedMessages[k] == 0) {
-						System.out.print(k + ", ");
+						System.err.print(k + ", ");
 					}
 				}
-				System.out.println("and that is all.");
+				System.err.println("and that is all.");
 				close = true;
 			}
 		}
@@ -71,6 +71,7 @@ public class UDPServer {
 	
 			// TO-DO: Log receipt of the message
 			receivedMessages[msg.messageNum-1]++;
+			System.out.println("MESSAGE RECEIVED: " + msg.messageNum);
 	
 			// TO-DO: If this is the last expected message, then identify
 			//        any missing messages
@@ -81,13 +82,12 @@ public class UDPServer {
 						System.out.print(k + ", ");
 					}
 				}
-			
 				System.out.println("and that is all.");
-			}
+			
 			// Restore to uninitiated value.
 				totalMessages = -1;
 				this.close = true;
-			
+			}
 		}	catch(Exception e) {
 			System.err.println("ProcessMessage Error:");
 			e.printStackTrace();
