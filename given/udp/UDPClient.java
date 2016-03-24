@@ -60,7 +60,7 @@ public class UDPClient {
 	}
 
 	private void testLoop(InetAddress serverAddr, int recvPort, int countTo) {
-		int				tries = 1;
+		int				tries = 2;
 
 		// TO-DO: Send the messages to the server
 		try {
