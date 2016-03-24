@@ -46,7 +46,7 @@ public class UDPServer {
 					if(receivedMessages[k] == 0) {
 						System.out.print(k + ", ");
 					}
-
+				}
 				close = true;
 			}
 		}
@@ -85,8 +85,8 @@ public class UDPServer {
 			// Restore to uninitiated value.
 				totalMessages = -1;
 				this.close = true;
-			}
-		} catch(Exception e) {
+			
+		}	catch(Exception e) {
 			System.err.println("ProcessMessage Error:");
 			e.printStackTrace();
 		}
