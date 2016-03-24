@@ -2,6 +2,10 @@
  * Created on 07-Sep-2004
  * @author bandara
  */
+
+// TO DO: - Close off sockets (in server as well)
+// 		- compile
+// 		- test
 package udp;
 
 import java.io.IOException;
@@ -44,23 +48,48 @@ public class UDPClient {
 
 
 		// TO-DO: Construct UDP client class and try to send messages
+		UDPClient client = new UDPClient();
+		client.testLoop(serverAddr, recvPort, countTo);
 	}
 
 	public UDPClient() {
 		// TO-DO: Initialise the UDP socket for sending data
+		sendSoc = new DatagramSocket();
 	}
 
 	private void testLoop(InetAddress serverAddr, int recvPort, int countTo) {
-		int				tries = 0;
+		int				tries = 1;
 
 		// TO-DO: Send the messages to the server
+		try {
+			for(int k = 1; k <= countTo; k++) {
+				message = countTo + ";" + k;
+				for(int j = 0; j < tries; j++) {
+					this.send(message, serverAddr, recvPort);
+				}
+			}
+		} catch(Exception e) {
+			System.err.println("Error in testLoop():");
+			e.printStackTrace();
+		}
 	}
+	
 
 	private void send(String payload, InetAddress destAddr, int destPort) {
 		int				payloadSize;
 		byte[]				pktData;
 		DatagramPacket		pkt;
-
-		// TO-DO: build the datagram packet and send it to the server
+		
+		try {
+			// TO-DO: build the datagram packet and send it to the server
+			payloadSize = payload.length;
+			pktData = new byte[payloadSize];
+			pktData = payload.getBytes();
+			pkt = new DatagramPacket(pktData, payloadSize, destAddr, destPort);
+			sendSoc.send(pkt);
+		} catch (Exception e) {
+			System.err.println("send() Error:");
+			e.printStackTrace();
+		}
 	}
 }
