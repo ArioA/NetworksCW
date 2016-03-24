@@ -41,6 +41,12 @@ public class UDPServer {
 				processMessage(new String(pac.getData(), 0, pac.getLength()-1));
 			} catch(Exception e) {
 				System.err.println("Waited on receive too long.");
+				System.out.print("Unreceived messages are: ");
+				for(int k = 0; k < totalMessages; k++) {
+					if(receivedMessages[k] == 0) {
+						System.out.print(k + ", ");
+					}
+
 				close = true;
 			}
 		}
@@ -74,6 +80,7 @@ public class UDPServer {
 						System.out.print(k + ", ");
 					}
 				}
+			}
 				System.out.println("and that is all.");
 			// Restore to uninitiated value.
 				totalMessages = -1;
