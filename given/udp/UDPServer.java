@@ -38,7 +38,7 @@ public class UDPServer {
 				pacData = new byte[256];
 				pac = new DatagramPacket(pacData, pacData.length);
 				recvSoc.receive(pac);
-				processMessage(new String(pac.getData(), 0, pac.getLength()));
+				processMessage(new String(pac.getData(), 0, pac.getLength()-1));
 			} catch(Exception e) {
 				System.err.println("Waited on receive too long.");
 				close = true;
@@ -50,7 +50,6 @@ public class UDPServer {
 	public void processMessage(String data) {
 
 		MessageInfo msg = null;
-
 
 		try {
 			// TO-DO: Use the data to construct a new MessageInfo object
@@ -64,7 +63,7 @@ public class UDPServer {
 			}
 	
 			// TO-DO: Log receipt of the message
-			receivedMessages[msg.messageNum]++;
+			receivedMessages[msg.messageNum-1]++;
 	
 			// TO-DO: If this is the last expected message, then identify
 			//        any missing messages

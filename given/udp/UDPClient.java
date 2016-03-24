@@ -65,8 +65,10 @@ public class UDPClient {
 		// TO-DO: Send the messages to the server
 		try {
 			String message;
+			MessageInfo msgInfo;
 			for(int k = 1; k <= countTo; k++) {
-				message = new String(countTo + ";" + k);
+				msgInfo = new MessageInfo(countTo, k);
+				message = new String(msgInfo.toString());
 				for(int j = 0; j < tries; j++) {
 					this.send(message, serverAddr, recvPort);
 				}
