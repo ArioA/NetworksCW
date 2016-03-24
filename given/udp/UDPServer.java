@@ -47,6 +47,7 @@ public class UDPServer {
 						System.out.print(k + ", ");
 					}
 				}
+				System.out.println("and that is all.");
 				close = true;
 			}
 		}
@@ -80,8 +81,9 @@ public class UDPServer {
 						System.out.print(k + ", ");
 					}
 				}
-			}
+			
 				System.out.println("and that is all.");
+			}
 			// Restore to uninitiated value.
 				totalMessages = -1;
 				this.close = true;
