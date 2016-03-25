@@ -23,12 +23,13 @@ public class UDPServer {
 	private int totalMessages = -1;
 	private int[] receivedMessages;
 	private boolean close;
+	private int totalReceived = 0;
 
 	private void run() {
-		// int				pacSize;
 		byte[]			pacData;
 		DatagramPacket 	pac;
 		close = false;
+		boolean lost = false;
 
 		// TO-DO: Receive the messages and process them by calling processMessage(...).
 		//        Use a timeout (e.g. 30 secs) to ensure the program doesn't block forever
@@ -45,14 +46,24 @@ public class UDPServer {
 			}
 		}
 
-		System.out.print("Unreceived messages are: ");
+
 		for(int k = 0; k < totalMessages; k++) {
 			if(receivedMessages[k] == 0) {
+				if(!lost)
+					System.out.print("Unreceived messages are: ");
 				System.err.print((k+1) + ", ");
+				lost = true;
 			}
 		}
-		System.out.println("and that is all.");
+		if(lost)
+			System.out.println("and that is all.");
+		else 
+			System.out.println("No Datagram packets were lost!");
 
+		System.out.print("Received: " + totalReceived + "/" + totalMessages);
+		System.out.println(" ("+(((double)totalReceived)*100/totalMessages)+"%)");
+
+		totalMessages = -1;
 		recvSoc.close();
 	}
 
@@ -73,13 +84,12 @@ public class UDPServer {
 	
 			// TO-DO: Log receipt of the message
 			receivedMessages[msg.messageNum-1]++;
-			System.out.println("MESSAGE RECEIVED: " + msg.messageNum);
+			totalReceived++;
 	
 			// TO-DO: If this is the last expected message, then identify
 			//        any missing messages
 			if(msg.messageNum == totalMessages) {
 			// Restore to uninitiated value.
-				totalMessages = -1;
 				this.close = true;
 			}
 		}	catch(Exception e) {
